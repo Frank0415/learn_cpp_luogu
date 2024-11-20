@@ -1,2 +1,6 @@
 # learn_cpp_luogu
-洛谷《深入浅出程序设计竞赛》笔记
+
+- Luogu _Introduction to programming contest_ Basic & Advanced
+- JI/UM EECS280
+- MIT 6.006
+- CS106B/L/X
