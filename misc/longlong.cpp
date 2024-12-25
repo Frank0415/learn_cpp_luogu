@@ -4,10 +4,9 @@
 
 using namespace std;
 
-string add(string longint, string addint);
-
 namespace longcal {
-string add(string longint, string addint);
+string add(const string &longint, const string &addint);
+void copy(int *dest, const string &src, int len);
 }
 
 class CalLongint {
@@ -17,20 +16,18 @@ private:
 public:
   void init(const string &longinit) { longint = longinit; }
   void print() { cout << longint << endl; }
-  string add(string addint);
-  string multiply(string mulint);
+  string add(const string &addint);
+  string multiply(const string &mulint);
 };
 
-string CalLongint::add(string addint) {
+string CalLongint::add(const string &addint) {
   int a = longint.length(), b = addint.length();
   int len = max(a, b);
   int *lint = new int[a]();
   int *aint = new int[b]();
   int *solu = new int[len + 1]();
-  for (int i = 0, j = a - 1; i < a; i++, j--)
-    lint[i] = longint[j] - '0';
-  for (int i = 0, j = b - 1; i < b; i++, j--)
-    aint[i] = addint[j] - '0';
+  longcal::copy(lint, longint, a);
+  longcal::copy(aint, addint, b);
 
   for (int i = 0; i < len; i++) {
     int sum = (lint[i] + aint[i] + solu[i]);
@@ -51,18 +48,15 @@ string CalLongint::add(string addint) {
   return solution;
 }
 
-string CalLongint::multiply(string mulint) {
+string CalLongint::multiply(const string &mulint) {
   int a = longint.length(), b = mulint.length();
-  int len = max(a, b);
   int *lint = new int[a + 1]();
   int *aint = new int[b + 1]();
   int *solu = new int[a + b + 1]();
   string solution;
 
-  for (int i = 0, j = a - 1; i < a; i++, j--)
-    lint[i] = longint[j] - '0';
-  for (int i = 0, j = b - 1; i < b; i++, j--)
-    aint[i] = mulint[j] - '0';
+  longcal::copy(lint, longint, a);
+  longcal::copy(aint, mulint, b);
 
   for (int i = 0; i < a; i++) {
     for (int j = 0; j < b; j++) {
@@ -73,26 +67,24 @@ string CalLongint::multiply(string mulint) {
       for (int q = 0; q < i + j; q++)
         mulstr.append("0");
       solution = longcal::add(solution, mulstr);
-      cout << solution << endl;
     }
   }
-
+  cout << solution << endl;
   delete[] lint;
   delete[] aint;
   delete[] solu;
   return solution;
 }
 
-string longcal::add(string longint, string addint) {
+string longcal::add(const string &longint, const string &addint) {
   int a = longint.length(), b = addint.length();
   int len = max(a, b);
   int *lint = new int[a]();
   int *aint = new int[b]();
   int *solu = new int[len + 1]();
-  for (int i = 0, j = a - 1; i < a; i++, j--)
-    lint[i] = longint[j] - '0';
-  for (int i = 0, j = b - 1; i < b; i++, j--)
-    aint[i] = addint[j] - '0';
+
+  longcal::copy(lint, longint, a);
+  longcal::copy(aint, addint, b);
 
   for (int i = 0; i < len; i++) {
     int sum = (lint[i] + aint[i] + solu[i]);
@@ -113,12 +105,16 @@ string longcal::add(string longint, string addint) {
   return solution;
 }
 
+void longcal::copy(int* dest, const string &src, int len) {
+  for (int i = 0, j = len - 1; i < len; i++, j--)
+    dest[i] = src[j] - '0';
+}
+
 int main() {
   CalLongint ans;
   ans.init("6751");
   string b = ans.add("20000");
   ans.multiply("22");
-  cout << b;
-
+  cout << b << endl;
   return 0;
 }
