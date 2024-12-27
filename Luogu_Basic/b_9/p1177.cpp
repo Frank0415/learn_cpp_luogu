@@ -8,7 +8,7 @@ void mergesort(int *start, int *end);
 void merge(int *start, int *mid, int *end);
 
 int main() {
-  int size;
+  int size=0;
   cin >> size;
   int list[size + 1];
   for (int i = 0; i < size; i++) {
