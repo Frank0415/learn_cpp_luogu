@@ -27,16 +27,14 @@ int main() {
 
   int k = 0;
 
-  cout << "hhj";
-
-  while (bp > 0) {
+  while (bp > 0 && k < count) {
     if (bp <= p[k].mass) {
-      bp = 0;
       value += bp * p[k].uvalue;
+      bp = 0;
     } else {
       value += p[k].value;
-      k++;
       bp -= p[k].mass;
+      k++;
     }
   }
   printf("%.2f\n", value);
